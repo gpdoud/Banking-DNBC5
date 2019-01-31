@@ -9,6 +9,10 @@ namespace BankingProject {
 
         private double IntRate { get; set; } = 0.01;
 
+        public override string Print() {
+            return base.Print() + $" IntRate={IntRate}";
+        }
+
         public double GetIntRate() {
             return IntRate;
         }

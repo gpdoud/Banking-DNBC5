@@ -54,8 +54,8 @@ namespace BankingProject {
             }
             Balance -= Amount;
         }
-        public void Print() {
-            Console.WriteLine($"Id={Id}, Description={Description}, Balance={Balance}");
+        public virtual string Print() {
+            return $"Id={Id}, Description={Description}, Balance={Balance}";
         }
         public Account(string NewDescription) {
             Id = nextId++;
