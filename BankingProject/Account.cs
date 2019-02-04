@@ -5,15 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BankingProject {
-    class Account {
+    class Account : IComparable<Account>, IAccount {
 
         private static int nextId = 1;
 
         private int Id { get; set; }
         private string Description { get; set; }
-        private double Balance { get; set; }
+        private decimal Balance { get; set; }
 
-        public void TransferTo(double Amount, Account Acct) {
+        public int CompareTo(Account acct) {
+            if(this.Description.Equals(acct.Description)) {
+                return 0;
+            }
+            if(this.Description.CompareTo(acct.Description) > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        public void TransferTo(decimal Amount, Account Acct) {
             var BalanceBeforeWithdraw = GetBalance();
             Withdraw(Amount);
             var BalanceAfterWithdraw = GetBalance();
@@ -33,17 +44,17 @@ namespace BankingProject {
         public void SetDescription(string NewDescription) {
             Description = NewDescription;
         }
-        public double GetBalance() {
+        public decimal GetBalance() {
             return Balance;
         }
-        public void Deposit(double Amount) {
+        public void Deposit(decimal Amount) {
             if(Amount <= 0) {
                 Console.WriteLine("Amount must be positive.");
             } else {
                 Balance += Amount;
             }
         }
-        public void Withdraw(double Amount) {
+        public void Withdraw(decimal Amount) {
             if(Amount <= 0) {
                 Console.WriteLine("Amount must be positive.");
                 return;
